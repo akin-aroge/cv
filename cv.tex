@@ -1,0 +1,487 @@
+% Adapted from here: https://github.com/jakevdp/website/blob/master/CV/CV.tex
+
+
+\documentclass{article} %{{{--
+
+\usepackage[paper=a4paper,
+	    top=2cm,
+	    left=1.35cm,
+	    width=18.2cm,
+	    bottom=2cm
+	    ]{geometry}
+            %margin=4cm,
+
+\usepackage{calc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{color,hyperref}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\usepackage{wasysym} % For phone symbol
+\usepackage{url}
+
+\def\bf{\bfseries}
+\def\sf{\sffamily}
+\def\sl{\slshape}
+% Semi condensed bold
+
+\definecolor{deep_blue}{rgb}{0,.2,.5}
+\definecolor{dark_blue}{rgb}{0,.1,.3}
+\definecolor{myblue}{rgb}{.01,0.21,0.71}
+\definecolor{gray}{rgb}{.5, .5, .5}
+
+\hypersetup{pdftex,  % needed for pdflatex
+  breaklinks=true,  % so long urls are correctly broken across lines
+  colorlinks=true,
+  urlcolor=myblue,
+  %linkcolor=darkblue,
+  %citecolor=darkgreen,
+  }
+
+
+%% This gives us fun enumeration environments.
+\usepackage{enumitem}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+%% Reference the last page in the page number
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+%\fancyfootoffset{\marginparsep}+\marginparwidth}
+\lfoot{
+  \hspace{-2\marginparsep}
+  \,\hfill \arabic{page} of \protect\pageref*{LastPage}  \hfill \,\\
+  \,\hfill {\footnotesize \textcolor{gray}{updated \today~~~~~}} \hfill\,
+}
+
+\newcommand{\mydate}[1]{{\textcolor{gray}{\footnotesize #1}}}
+
+
+\newcommand{\makeheading}[1]%
+        {%\hspace*{-\marginparsep minus \marginparwidth}%
+         %\begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+         \begin{minipage}[t]{\textwidth}%
+                {\Large #1}\\%[-0.5\baselineskip]%
+                \vskip 0.2\baselineskip
+                 \color{deep_blue}{\rule{\columnwidth}{3pt}}%
+         \end{minipage}
+	 \vskip 1.\baselineskip plus 2\baselineskip minus 1.\baselineskip
+	}
+
+\newlength\sidebarwidth
+\setlength\sidebarwidth{3.6cm}
+
+\newcommand{\topic}[3][]%
+	 {\pagebreak[2]%
+	 \vskip 1.5\baselineskip plus 3\baselineskip minus 0.7\baselineskip
+	 \begin{minipage}{\textwidth}
+         \phantomsection\addcontentsline{toc}{section}{#1}%
+         \nopagebreak\hspace{0in}%
+         \nopagebreak\begin{minipage}[t]{\sidebarwidth - .2cm}
+         \raggedleft \bf\sf
+	 \color{deep_blue}{\Large #2}
+	 \end{minipage}%
+	 \hfill
+	 \begin{minipage}[t]{\linewidth - \sidebarwidth}
+	 \nopagebreak{\color{deep_blue}%
+		    \rule{0pt}{\baselineskip}%
+		    \rule{\linewidth}{2.5pt}%
+		    \llap{\raisebox{.3\baselineskip}{\sf #1}}%
+		    \vspace*{.1\baselineskip}%
+		    }%
+	 #3%
+	 \end{minipage}
+	 \end{minipage}}
+
+\newcommand{\smalltopic}[2]%
+	 {\pagebreak[2]%
+	 \vskip 1\baselineskip plus 2\baselineskip minus 0.3\baselineskip
+	 \begin{minipage}{\textwidth}
+	 %\hspace{-\marginparsep minus \marginparwidth}%
+         \phantomsection\addcontentsline{toc}{subsection}{#1}%
+         \nopagebreak\hspace{0in}%
+         \nopagebreak\begin{minipage}[t]{\sidebarwidth - .2cm}
+         \raggedleft \bf\sf %\vskip -0.5\baselineskip
+	 \textcolor{dark_blue}{\large #1}%
+	 \end{minipage}%
+	 \hfill
+	 \begin{minipage}[t]{\linewidth - \sidebarwidth}
+	 \nopagebreak{%
+	    %\vspace{-.7\baselineskip}%
+	    \rule{\linewidth}{.5pt}%
+	    \vspace{.1\baselineskip}%
+	    }%
+	    #2
+	 \end{minipage}
+	 \end{minipage}}
+
+\newcommand{\subtopic}[3][]
+	 {\begin{minipage}{\textwidth}
+	 \vspace*{.4\baselineskip}
+         \nopagebreak\hspace{0in}%
+         \nopagebreak\begin{minipage}[t]{\sidebarwidth - .2cm}
+	 % Super posh: using semi-bold condensed fonts. Works only with
+	 % lmodern
+         \raggedleft {\sf\fontseries{sbc}\selectfont #2}
+	 %{\small\sl\\[-0.2\baselineskip] #1}
+         {\\[-0.2\baselineskip] \textcolor{gray}{\footnotesize #1}}
+	 \end{minipage}%
+	 \hfill
+	 \begin{minipage}[t]{\linewidth - \sidebarwidth}
+	 #3%
+	 \end{minipage}%
+	 \vspace*{.2\baselineskip plus 1\baselineskip minus
+	 .2\baselineskip}%
+	 \end{minipage}}
+
+\newcommand{\dateonly}[2][]
+	 {\begin{minipage}{\textwidth}
+	 \vspace*{.4\baselineskip}
+         \nopagebreak\hspace{0in}%
+         \nopagebreak\begin{minipage}[t]{\sidebarwidth - .2cm}
+         \raggedleft {~}
+         {\\[-\baselineskip] \textcolor{gray}{\footnotesize #1}}
+	 \end{minipage}%
+	 \hfill
+	 \begin{minipage}[t]{\linewidth - \sidebarwidth}
+	 #2%
+	 \end{minipage}%
+	 \vspace*{.2\baselineskip plus 1\baselineskip minus
+	 .2\baselineskip}%
+	 \end{minipage}}
+
+\newcommand{\sidenote}[2]
+	 {\vspace*{-.2\baselineskip}\begin{minipage}{\textwidth}
+         \nopagebreak\hspace{0in}%
+         \nopagebreak\begin{minipage}[t]{\sidebarwidth - .2cm}
+         \raggedleft {#1}
+	 \end{minipage}%
+	 \hfill
+	 \begin{minipage}[t]{\linewidth - \sidebarwidth}
+	 #2%
+	 \end{minipage}%
+	 \vspace*{.5\baselineskip plus 1\baselineskip minus
+	 .2\baselineskip}%
+	 \end{minipage}}
+
+% New lists environments
+\newlist{outerlist}{itemize}{1}
+\setlist[outerlist]{font=\sffamily\bfseries, label=\textbullet}
+\setitemize{topsep=0ex, partopsep=0ex}
+\setdescription{font=\normalfont\sffamily\bfseries, itemsep=.5ex,
+    parsep=.5ex, leftmargin=3ex}
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+\def\mydot{\textcolor{deep_blue}{\rule{1ex}{1ex}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%--}}}%
+\begin{document}
+\makeheading{
+\begin{minipage}[B]{0.5\textwidth}
+    %\vfill
+    \vspace*{-.5\baselineskip}%
+    \parbox{14cm}{
+	\hskip -0.1cm
+	{\Huge\bf\sf \color{deep_blue} F\huge \hskip -0.05cm ABUSUYI %
+	\Huge A\huge \hskip -0.05cm KINDELE
+	 \Huge A\huge \hskip -0.05cm ROGE}
+	\\[-.1\baselineskip]
+	{\bf\sf Energy Systems}
+        \\
+        {\bf\sf Data Scientist}
+        \\
+        Simon Fraser University (SFU), Vancouver, Canada
+    }
+\end{minipage}
+\hfill
+\begin{minipage}[B]{8cm}
+    \raggedleft
+    \,\vskip -1em
+    \small
+        \url{https://akin-aroge.github.io/}\\
+	{\texttt {arogeakindele@gmail.com}}
+    \vspace*{-.5\baselineskip}%
+\end{minipage}
+}
+
+%\begin{center}
+%\begin{minipage}{15cm}
+
+\begin{center}
+I research energy system performance characteristics using computational, statistical and signal processing techniques.
+%I study energy systems using computational, statistical and signal processing techniques for efficiency improvement opportunities.
+\end{center}
+
+\begin{multicols}{2}
+\sloppy
+
+%\textcolor{deep_blue}{\bf\sf Research interests}:
+%Cosmology, weak lensing, data mining and automated learning algorithms for
+%large astronomical data sets.
+
+\begin{itemize}[leftmargin=2ex, itemsep=0ex]
+\item[\mydot]
+I am currently a researcher at \href{http://www.sfu.ca/~ekjeang/index.html}{FCReL, SFU}, working on zero-emission fuel cell efficiency improvement, leveraging advanced 3D X-ray image analysis.
+
+\item[\mydot]
+I maintain a technical blog, \href{https://akin-aroge.github.io/}{
+Playground}, to share tutorials and opinions related to statistics, data science, scientific computing, and beyond.
+
+\item[\mydot]
+I invest a significant amount of time in teaching computational and statistical methods to undergraduate students.
+
+\item[\mydot]
+Outside my employment, I participate in the broader data science community.
+
+\end{itemize}
+\end{multicols}
+\vspace*{-1.5em}
+\fussy
+%\end{minipage}
+%\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\topic{E \large\hskip -1ex DUCATION}{~}
+
+    \subtopic[2019-present]{\bf PhD}{
+        Department of Sustainable Energy Engineering, Simon Fraser University, Canada\\
+        advised by Prof. Erik Kjeang\\
+	%Focus: Improving the performance of fuel cell systems by investigating water transport through analysis of X-Ray Computed Tomography
+	Focus: Understanding fuel cell water transport using \textit{operando} X-ray imaging.
+    }
+
+    \subtopic[2017-2019]{\bf MS}{
+      Department of Electrical Engineering, University of Cape Town, Cape Town, South Africa\\
+      advised by Paul Barendse\\
+      Thesis: \href{https://open.uct.ac.za/bitstream/handle/11427/30027/thesis_ebe_2018_aroge_fabusuyi_akindele.pdf?sequence=1&isAllowed=y} {Impedance Spectroscopy Techniques for Condition Monitoring of Polymer Electrolyte Membrane Fuel Cells}
+    }
+
+    \subtopic[2009-2014]{\bf BS}{
+      Federal University of Tech., Akure, Nigeria\\
+      Major: Electrical \& Electronics Engineering
+      }
+	\smalltopic{Others}{}
+	
+		\subtopic[Jan. 2019-Dec. 2019]{\bf Micro Masters}{
+      Institute for Data, Systems, and Society Massachusetts Institute
+of Technology (MIT)\\
+      Modules: Probability | Machine Learning with Python: from Linear Models to Deep Learning
+| Fundamentals of Statistics | Data Analysis in Social Science—Assessing Your Knowledge}
+\subtopic[]{\bf MOOCs}{
+      \href{https://gist.github.com/akin-aroge/2552fab8f5f2cc3a2dea231b0737f074} {List of online courses and specializations completed.}\\
+      }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\topic{C \large\hskip -1ex OMPUTING}{
+  I have some active computing projects, including packages developed as part of some of my theses. See my github profile
+  (\href{https://github.com/akin-aroge}{https://github.com/akin-aroge})
+  for details.}
+
+%\vspace*{-0.5\baselineskip}
+\smalltopic{Skills}{
+
+  \begin{itemize}[leftmargin=0ex, itemsep=0ex, labelindent=-2ex, parsep=.5ex]
+    \item[\mydot] Experienced (industry \& academia) data scientist, with a specialization in
+      scientific computing, including visualization, data mining and machine
+      learning.
+    \item[\mydot] Python Language with over 4 years of experience particularly with the Python scientific stack (NumPy, Pandas,
+matplotlib, scikit-Learn, SciPy).
+    \item[\mydot] Experience with a variety of tools and languages, including SQL, R, bash, Git, Jupyter notebooks, MATLAB,
+\LaTeX{}, Microsoft Azure cloud computing platform.
+
+    \item[\mydot] Author of {\it Playground}, a Python
+      blog covering scientific computing, visualization, statistics, and related topics:
+      \href{https://akin-aroge.github.io/}{https://akin-aroge.github.io/}
+  \end{itemize}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\topic{E \large\hskip -1ex XPERIENCE}{~}
+
+\vspace*{-0.5\baselineskip}
+\smalltopic{Employment}{}
+
+    \subtopic[2019--present]{FCReL, SFU}{
+      Doctoral Research Associate, \\
+      {\it Fuel Cell Research Lab, School of Sustainable Energy Engineering, Vancouver}
+	
+	  \begin{itemize}[leftmargin=0ex, itemsep=0ex, labelindent=-2ex, parsep=.5ex]
+
+    \item[\mydot] I have developed an image analysis technique for quantifying liquid water in radiographic images
+    \item[\mydot] I have developed a technique for summarizing fuel cell water interactions using principal component analysis
+    \item[\mydot]  I have developed a computational framework for analyzing fuel cell water instabilities during X-ray imaging.
+    % fuel cell liquid water presence using laboratory X-ray images. 
+    %\item[\mydot]  Developed an entropy metric for characterizing spatial distribution of fuel cell liquid water \\
+  	\end{itemize}      
+      }
+      
+   \subtopic[Fall 2021]{Sun Lab, SFU}{
+      Data Scientist (Bio-informatics), \\
+      {\it Sun Research Lab, Department of Chemistry, Vancouver}
+	
+	  \begin{itemize}[leftmargin=0ex, itemsep=0ex, labelindent=-2ex, parsep=.5ex]
+
+    \item[\mydot] I developed data engineering pipelines in python to automate analysis of body-wide transcriptome data
+    \item[\mydot] I investigated differential gene expressions and organ relationships for mouse disease models
+    \item[\mydot] I developed network visualizations of body-wide transcriptome profiles to inform analysis and interpretation of results, using Python
+  	\end{itemize}      
+      }
+
+    \subtopic[Jan. 2018--Dec. 2020]{Rhino Africa}{
+      Data Scientist — Exploration and Modelling\\
+      {\it Rhino Africa, Cape Town, South Africa}
+      
+      	  \begin{itemize}[leftmargin=0ex, itemsep=0ex, labelindent=-2ex, parsep=.5ex]
+
+    \item[\mydot] I implemented an optimised personnel schedule algorithm which reduced customer turnaround time from 17hrs to 7hrs
+%    \item[\mydot] Informed ads spend allocation by analysing temporal patterns in customer generation and ad spend data
+    \item[\mydot] I developed a time series analysis model showing the key variables influencing daily customer request rates to aid planning
+%    \item[\mydot] Provided key understanding to business stakeholders on the variables predicting enquiry generation to inform optimal planning. 
+	\item[\mydot] Investigated the impact of the water crisis in Cape Town on the business using internal and external  data sources (such as tweets) to inform business strategy
+	\item[\mydot] I also provided technical advice on various analytical projects and products across the business
+  	\end{itemize}
+      }
+      
+	    \subtopic[Mar. 2017--Jul. 2018]{AMES, UCT}{
+      Research Associate\\
+      \textit{Advanced Machines \& Energy Systems (AMES) Lab, University of Cape Town, South Africa.}
+      
+      	  \begin{itemize}[leftmargin=0ex, itemsep=0ex, labelindent=-2ex, parsep=.5ex]
+
+    \item[\mydot] I designed and developed (hardware \& software) a novel low-cost diagnostic system for rapidly assessing fuel cell performance using composite signals
+    \item[\mydot] I developed relevant computational libraries for automated signal processing and analysis for the
+research lab using MATLAB and Python programming languages
+	\item[\mydot] I developed and published new methods for assessing fuel cell real-time performance using wavelet analysis
+  	\end{itemize}
+      }
+
+    \subtopic[Oct. 2016--Jan. 2017]{Co-Creation Hub}{
+      Data Analyst (Intern)\\
+      \textit{Co-Creation Hub, Yaba, Lagos, Nigeria.}
+      
+      	  \begin{itemize}[leftmargin=0ex, itemsep=0ex, labelindent=-2ex, parsep=.5ex]
+
+    \item[\mydot] I processed and analyzed survey towards researching the Tech. Talent Gap in Nigeria %research project.
+    \item[\mydot] I informed strategy on the national coverage of startup incubation program using demographic and temporal data
+    \item[\mydot] I was responsible for assessing and making recommendations for the startup idea submission data collection system
+    %\item[\mydot] Integral part of the team responsible for designing an improved data collection system to aid downstream analysis.\\  
+  	\end{itemize}
+      }
+      
+	    \subtopic[Sep. 2013--Feb. 2014]{GENI}{
+      Remote Energy Research Associate\\
+      \textit{Global Energy Network Institute (GENI), San Diego, California, USA}
+      
+      	  \begin{itemize}[leftmargin=0ex, itemsep=0ex, labelindent=-2ex, parsep=.5ex]
+
+    \item[\mydot] I conducted research on behalf of the institute on important energy issues in Nigeria such as energy efficiency,
+renewable energy integration and smart grid prospect
+    \item[\mydot] I published a culminating research article titled, \href{http://www.geni.org/globalenergy/research/the-smart-grid-and-renewable-energy-integration-in-nigeria-2014/the-smart-grid-and-renewable-energy-integration-in-nigeria-2014.pdf} {The Smart Grid and Renewable Energy Integration in Nigeria} 
+  	\end{itemize} 
+      }
+
+    
+
+\smalltopic{Volunteering}{}
+
+    \subtopic[Fall 2020]{Advisory Council}{
+      As a member of the Developmental Advisory Council, SFU Strategic Sustainability Plan, I advised on the relevant components on the constitution of the advisory council.
+    }
+
+	    \subtopic[2018-2019]{Mastercard Mentorship}{
+      As a Mastercard mentor, I provided practical guidance, motivation and support to two mentees in the areas of academic trajectory, and navigating the university life in general.
+    }
+
+    \subtopic[2018-2019]{Simunye}{
+      As a member of Simunye, I joined other members to build a support system for the homeless around Rondebosch, Cape Town, South Africa.
+    }
+
+
+\smalltopic{Teaching Assistantship}{}
+
+    \subtopic[Summer 2021]{BUS 336}{
+      Data and Decisions II\\
+      {\it Simon Fraser University}}
+      
+    \subtopic[Summer 2021]{SEE 241}{
+      Measurement and Data Analysis\\
+      {\it Simon Fraser University}}
+
+    \subtopic[Spring 2021]{BUS 232}{
+      Data and Decisions I\\
+      {\it Simon Fraser University}}
+
+    \subtopic[Spring 2020 \& 2021]{SEE 242}{
+      Computational Methods for Engineers\\
+      {\it Simon Fraser University}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\topic{A \large\hskip -1ex WARDS \& HONORS}{~}
+
+    \subtopic[2021]{TELUS Grad Award}{
+      Awarded the {\it TELUS Graduate Award}. School of Sustainable Energy Engineering, SFU.
+    }
+    \subtopic[2019]{NRF, UCT}{
+		National Research Foundation (NRF) {\it research grant nomination} award. UCT.
+    }
+    \subtopic[2018]{UCT Scholarship}{
+      UCT International Postgraduate Student Scholarship award
+    }
+    \subtopic[2014]{IEEE ICAST}{
+      Recipient of the \textit{Best paper award} in the 14th session of the 6th IEEE ICAST conference
+    }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\topic{P \large\hskip -1ex UBLICATIONS}{~}
+
+\newcounter{PubNumber}
+\newcommand{\publication}{\item[{\bf \textcolor{myblue}{[\stepcounter{PubNumber}\arabic{PubNumber}]}}]}
+
+\smalltopic{Articles}{
+  \begin{itemize}[leftmargin=0ex, itemsep=0ex, labelindent=-4ex, parsep=.5ex]
+
+    \publication F.A. Aroge. {\it et al.}
+      \href{https://iopscience.iop.org/article/10.1149/MA2021-02361036mtgabs/meta} 
+      {\sl Method for Analyzing 2D X-Ray Transmission Images for Operando Liquid Water
+Distribution in a Polymer Electrolyte Fuel Cell}
+      ECS Meeting Abstracts, 2021
+    \publication F.A. Aroge, P. Barendse, 
+      \href{https://doi.org/10.1109/ECCE.2019.8913156}{\sl Multi-Frequency Signal Synthesis for Accurate Fuel Cell Impedance Estimation}
+      IEEE Energy Conversion Congress and Exposition (ECCE), 2019
+    \publication F.A. Aroge, P. Barendse.
+       \href{https://doi.org/10.1109/PowerAfrica.2018.8521159}{\sl Signal Injection by Active Load Modulation for PEM Fuel Cell Diagnostics}
+      IEEE PES/IAS PowerAfrica, 2018
+      
+    \publication F.A. Aroge, P. Barendse.
+       \href{http://dx.doi.org/10.1109/ECCE.2018.8558129}{\sl Time-Frequency Analysis of the Chirp Response for Rapid Electrochemical Impedance Estimation}
+      IEEE Energy Conversion Congress and Exposition (ECCE), 2018
+      
+    \publication O. Oladeji, F.A. Aroge.
+       \href{https://doi.org/10.1109/ICASTECH.2014.7068063}{\sl Priority-based autonomous load control in dynamic pricing environments}
+      IEEE 6th International Conference on Adaptive Science \& Technology (ICAST), 2014 \\
+      {\bf (Adjudged 
+        {\it \bf Best paper in the 14th session of the 6th ICAST})}
+        
+    \publication F.A. Aroge, P. Meisen.
+       \href{https://www.geni.org/globalenergy/research/the-smart-grid-and-renewable-energy-integration-in-nigeria-2014/the-smart-grid-and-renewable-energy-integration-in-nigeria-2014.pdf}{\sl The Smart Grid and Renewable Energy Integration in Nigeria}
+      IEEE Energy Conversion Congress and Exposition (ECCE), 2018
+  \end{itemize}
+}
+
+
+
+
+
+\end{document}
